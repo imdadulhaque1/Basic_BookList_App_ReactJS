@@ -14,6 +14,7 @@ class App extends Component{
       {id:3, bookName: "The Alchemist", writer: "Paulo Coelho"}
     ],
     // otherProp: "I am from other Props !"
+    showBooks: true
   }
 
   changeWithInputState = (event, index) =>{
@@ -37,6 +38,12 @@ class App extends Component{
       books: books
     });
   };
+
+  toggleBooks = () =>{
+    this.setState({ showBooks: !this.state.showBooks });
+  }
+
+
   render() {
     // let obj = new Component();
     // console.log(obj);
@@ -67,7 +74,8 @@ class App extends Component{
     return(
       <div className="App">
         <h1 style={style}>Book List</h1>
-        {books}
+        <button onClick={this.toggleBooks}>Toggle Books</button>
+        {this.state.showBooks ? books : null}
       </div>
     );
   }
