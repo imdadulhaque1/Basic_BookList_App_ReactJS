@@ -27,7 +27,9 @@ class App extends Component{
   }
 
   deleteBookState = index =>{
-    const books = this.state.books;
+    // const books = this.state.books.slice();     // use Spread Operator
+    // const books = this.state.books.map(item => item);    // use Spread Operator 
+    const books = [...this.state.books];  //Spread Operator is best way to use
     books.splice(index, 1);
     this.setState({
       books: books
@@ -61,9 +63,6 @@ class App extends Component{
     return(
       <div className="App">
         <h1 style={style}>Book List</h1>
-        <button onClick={()=>this.changeBookState("1440")}>Change State</button>
-        <input type="text" onChange={this.changeWithInputState}
-        inputName = {this.changeWithInputState } />
         {books}
       </div>
     );
