@@ -13,21 +13,7 @@ class App extends Component{
       {bookName: "The Da Vinci Code", writer: "Dan Brown"},
       {bookName: "The Alchemist", writer: "Paulo Coelho"}
     ],
-    otherProp: "I am from other Props !"
-  }
-  // constructor(){
-  //   super();
-  //   this.state = {};
-  // }
-  changeBookState = newBookName =>{
-    // Wrong: this.state.books[0].bookName="1997";
-    this.setState({
-      books: [
-        {bookName: newBookName, writer: "Imdadul Haque"},
-        {bookName: "The of Story", writer: "Israt Jahan Maisha"},
-        {bookName: "Unknown Book", writer: "Enamul Haque"}
-      ]
-    });
+    // otherProp: "I am from other Props !"
   }
 
   changeWithInputState = event =>{
@@ -39,6 +25,14 @@ class App extends Component{
       ]
     });
   }
+
+  deleteBookState = index =>{
+    const books = this.state.books;
+    books.splice(index, 1);
+    this.setState({
+      books: books
+    });
+  };
   render() {
     // let obj = new Component();
     // console.log(obj);
@@ -49,22 +43,28 @@ class App extends Component{
       backgroundColor: "black",
       color: "white"
     };
+
+    // const booksState = this.state.books;
+ 
+    const books = this.state.books.map((book, index) => {
+      return(
+        <Book
+          bookName ={book.bookName}
+          writer = {book.writer}
+          delete = {() => this.deleteBookState(index)}
+        />
+      );
+    });
+    console.log(books);
+
+
     return(
       <div className="App">
         <h1 style={style}>Book List</h1>
         <button onClick={()=>this.changeBookState("1440")}>Change State</button>
         <input type="text" onChange={this.changeWithInputState}
         inputName = {this.changeWithInputState } />
-        <Book 
-              bookName={this.state.books[0].bookName}
-              writer={this.state.books[0].writer}/>
-        <Book
-              bookName={this.state.books[1].bookName}
-              writer={this.state.books[1].writer}/>
-        <Book
-              bookName={this.state.books[2].bookName}
-              writer={this.state.books[2].writer}
-              change={this.changeBookState.bind(this, "ID: 1440")}/>
+        {books}
       </div>
     );
   }
