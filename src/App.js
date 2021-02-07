@@ -16,14 +16,16 @@ class App extends Component{
     // otherProp: "I am from other Props !"
   }
 
-  changeWithInputState = event =>{
-    this.setState({
-      books: [
-        {bookName: event.target.value, writer: "Imdadul Haque"},
-        {bookName: "The of Story", writer: "Israt Jahan Maisha"},
-        {bookName: "Unknown Book", writer: "Enamul Haque"}
-      ]
-    });
+  changeWithInputState = (event, index) =>{
+    const book = {
+      ...this.state.books[index]
+    }
+
+    book.bookName = event.target.value;
+    const books = [...this.state.books];
+    books[index]=book;
+
+    this.setState({ books: books });
   }
 
   deleteBookState = index =>{
@@ -53,8 +55,9 @@ class App extends Component{
         <Book
           bookName ={book.bookName}
           writer = {book.writer}
-          delete = {() => this.deleteBookState(index)}
+          delete = {()=> this.deleteBookState(index)}
           key = {book.id}
+          inputName = {(event)=> this.changeWithInputState(event, index)}
         />
       );
     });
