@@ -9,9 +9,9 @@ class App extends Component{
   // State
   state = {
     books: [
-      {bookName: "1984", writer: "George Orwell"},
-      {bookName: "The Da Vinci Code", writer: "Dan Brown"},
-      {bookName: "The Alchemist", writer: "Paulo Coelho"}
+      {id:1, bookName: "1984", writer: "George Orwell"},
+      {id:2, bookName: "The Da Vinci Code", writer: "Dan Brown"},
+      {id:3, bookName: "The Alchemist", writer: "Paulo Coelho"}
     ],
     // otherProp: "I am from other Props !"
   }
@@ -54,6 +54,7 @@ class App extends Component{
           bookName ={book.bookName}
           writer = {book.writer}
           delete = {() => this.deleteBookState(index)}
+          key = {book.id}
         />
       );
     });
