@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookList from './lists/BookList';
 import booksList from '../assets/books';
+import NewBook from './representational/NewBook';
 
 class MainComponent extends Component {
       constructor (props){
@@ -9,7 +10,6 @@ class MainComponent extends Component {
           books: booksList ,
           showBooks: true
         }
-        console.log("MainComponent Constructor");
       }
   
     changeWithInputState = (event, index) =>{
@@ -38,31 +38,8 @@ class MainComponent extends Component {
       this.setState({ showBooks: !this.state.showBooks });
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-      console.log("Updated MainComponent shouldComponentUpdate", nextProps, nextState);
-      return true;
-    }
-  
-    componentDidMount() {
-      console.log("MainComponent componentDidMount !");
-    }
-  
-    // UNSAFE_componentWillMount() {
-    //   console.log("MainComponent componentWillMount !");
-    // }
-    // UNSAFE_componentWillUpdate(nextProps, nextState){
-    //   console.log("Updated MainComponent componentWillUpdate !");
-    // }
-
-    static getDerivedStateFromProps(nextProps, prevState){
-      console.log("MainComponent getDerivedStateFromProps", nextProps, prevState);
-      return prevState;
-    }
-    getSnapshotBeforeUpdate(){        // We can use it exchange of "componentWillUpdate"
-      console.log("Updated MainComponent getSnapshotBeforeUpdate");
-    }
     render() {
-      console.log("MainComponent Render");
+      // console.log("MainComponent Render");
       // let obj = new Component();
       // console.log(obj);
       // For Book 
@@ -86,9 +63,16 @@ class MainComponent extends Component {
       // console.log(books);
       return(
         <div className="App">
+          <div className="nav-bar">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/new">New Book</a></li>
+            </ul>
+          </div>
           <h1 style={style}>Book List</h1>
           <button onClick={this.toggleBooks}>Toggle Books</button>
           {books}
+          <NewBook />
         </div>
       );
     }
