@@ -3,41 +3,29 @@ import BookList from './lists/BookList';
 import booksList from '../assets/books';
 import NewBook from './representational/NewBook';
 import { Route, NavLink } from 'react-router-dom';
+import BookDetail from './representational/BookDetail';
+
 
 class MainComponent extends Component {
       constructor (props){
         super(props);
         this.state = {
-          books: booksList ,
-          showBooks: true
+          books: booksList,
+          selectedBook: null
         }
       }
-  
-    changeWithInputState = (event, index) =>{
-      const book = {
-        ...this.state.books[index]
+
+      selectedBookHandler = bookId =>{
+        const book= this.state.books.filter(book => book.id === bookId)[0];
+        this.setState({
+          selectedBook: book
+        })
       }
-  
-      book.bookName = event.target.value;
-      const books = [...this.state.books];
-      books[index]=book;
-    }
-  
-    deleteBookState = index =>{
-      // const books = this.state.books.slice();     // use Spread Operator
-      // const books = this.state.books.map(item => item);    // use Spread Operator 
-      const books = [...this.state.books];  //Spread Operator is best way to use
-      books.splice(index, 1);
-      this.setState({
-        books: books
-      });
-    };
 
     render() {
         const books = <BookList 
         books={this.state.books} 
-        deleteBookState={this.deleteBookState} 
-        changeWithInputState = {this.changeWithInputState}
+        selectedBookHandler = {this.selectedBookHandler}
         />
 
       return(
@@ -50,6 +38,7 @@ class MainComponent extends Component {
           </nav>
           <Route path="/" exact render={()=> books} />
           <Route path="/new-book" exact component={NewBook} />
+          <BookDetail book={this.state.selectedBook} />
         </div>
       );
     }
